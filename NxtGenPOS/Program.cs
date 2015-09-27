@@ -26,6 +26,11 @@ namespace NxtGenPOS
         {
             s.makeLineItem(quantity);
         }
+
+        public void makePayment()
+        {
+            s.addPayment();
+        }
     }
 
     class Sale
@@ -33,20 +38,25 @@ namespace NxtGenPOS
         private readonly SalesLineItem sl = new SalesLineItem();
         private readonly Payment p = new Payment();
 
-        public void makePayment(double cashTendered)
+        public void makePayment()
         {
-            p.create(cashTendered);
+            p.create();
         }
 
         public void makeLineItem(int quantity)
         {
             sl.create(quantity);
         }
+
+        public void addPayment()
+        {
+            p.create();
+        }
     }
 
     class Payment
     {
-        public void create(double cashTendered)
+        public void create()
         {
 
         }
