@@ -21,27 +21,32 @@ namespace NxtGenPOS
 
     class Register
     {
-         
+        private readonly Sale s = new Sale();
+        public void makeLineItem(int quantity)
+        {
+            s.makeLineItem(quantity);
+        }
     }
 
     class Sale
     {
-        private SalesLineItem sl;
+        private readonly SalesLineItem sl = new SalesLineItem();
+        private readonly Payment p = new Payment();
 
-        public void makePayment()
+        public void makePayment(double cashTendered)
         {
-            
+            p.create(cashTendered);
         }
 
-        public void makeLineItem()
+        public void makeLineItem(int quantity)
         {
-            sl.create(5);
+            sl.create(quantity);
         }
     }
 
     class Payment
     {
-        public void create()
+        public void create(double cashTendered)
         {
 
         }
