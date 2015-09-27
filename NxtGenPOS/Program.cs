@@ -10,63 +10,161 @@ namespace NxtGenPOS
     {
         static void Main(string[] args)
         {
-            
         }
     }
 
-    class ProductCatalog
+    class ProductCatalog //Done
     {
-         
-    }
-
-    class Register
-    {
-        private readonly Sale s = new Sale();
-        public void makeLineItem(int quantity)
+        private List<ProductDescription> pcdList = new List<ProductDescription>(); 
+        public ProductDescription getProductDescription(int id)
         {
-            s.makeLineItem(quantity);
-        }
-
-        public void makePayment()
-        {
-            s.addPayment();
+            return pcdList[id];
         }
     }
 
-    class Sale
+    class Register //Done
     {
-        private readonly SalesLineItem sl = new SalesLineItem();
-        private readonly Payment p = new Payment();
-
-        public void makePayment()
+        private Sale s;
+        private readonly ProductCatalog pc;
+        public Register(ProductCatalog pc)
         {
-            p.create();
+            this.pc = pc;
         }
 
-        public void makeLineItem(int quantity)
+        public void newSale()
         {
-            sl.create(quantity);
+            s = new Sale();
         }
 
-        public void addPayment()
+        public void makePayment(int cash)
         {
-            p.create();
+            s.makeNewPayment(cash);
+        }
+
+        public void enterItem(int id, int qty)
+        {
+            ProductDescription desc = pc.getProductDescription(id);
+            s.makeLineItem(desc, qty);
+        }
+
+        public void endSale()
+        {
+            s.becomeComplete();
+        }
+
+    }
+
+    class Sale //Done
+    {
+        private List<SalesLineItem> slItem = new List<SalesLineItem>();
+        private Payment p;
+        private bool _isComplete = false;
+        private string _Date;
+
+        public double getBalance()
+        {
+            return p.getAmount() - getTotal();
+        }
+
+        public void makeLineItem(ProductDescription desc, int qty)
+        {
+            slItem.Add(new SalesLineItem(desc, qty));
+        }
+
+        public double getTotal()
+        {
+            double total = 0;
+            foreach (var sl in slItem)
+            {
+                var subtotal = sl.getSubtotal();
+                total = total + subtotal;
+            }
+            return total;
+        }
+        public void becomeComplete()
+        {
+            _isComplete = true;
+        }
+
+        public bool Complete()
+        {
+            return _isComplete;
+        }
+
+        public void makeNewPayment(double cashTendered)
+        {
+            p = new Payment(cashTendered);
+        }
+
+        
+    }
+    
+    class Payment // Done
+    {
+        private readonly double amount;
+        public Payment(double cashTendered)
+        {
+            amount = cashTendered;
+        }
+
+        public double getAmount()
+        {
+            return amount;
         }
     }
 
-    class Payment
+    class SalesLineItem //Done
     {
-        public void create()
+        private int qty;
+        private ProductDescription pcd;
+        public SalesLineItem (ProductDescription pcd, int qty)
         {
-
+            this.qty = qty;
+            this.pcd = pcd;
+        }
+        public double getSubtotal()
+        {
+            return pcd.getPrice();
         }
     }
 
-    class SalesLineItem
+    class ProductDescription //Done
     {
-        public void create(int quantity)
+        private int id;
+        private double price;
+        private string desc; // desc = description
+
+        public ProductDescription(int id, double price, string desc)
         {
-            
+            this.id = id;
+            this.price = price;
+            this.desc = desc;
+        }
+
+        public double getPrice()
+        {
+            return price;
+        }
+
+        public int getID()
+        {
+            return id;
+        }
+
+        public string getDesc()
+        {
+            return desc;
+        }
+    }
+
+    class Store //Done
+    {
+        private string adress;
+        private readonly Register r = new Register(new ProductCatalog());
+
+        public Register getregister()
+        {
+            return r;
         }
     }
 }
