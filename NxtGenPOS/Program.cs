@@ -10,6 +10,7 @@ namespace NxtGenPOS
     {
         static void Main(string[] args)
         {
+            
         }
     }
 
@@ -18,7 +19,7 @@ namespace NxtGenPOS
         private List<ProductDescription> pcdList = new List<ProductDescription>(); 
         public ProductDescription getProductDescription(int id)
         {
-            return pcdList[id];
+            return pcdList.Find(x => x.getID() == id);
         }
     }
 
