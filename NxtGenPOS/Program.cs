@@ -168,4 +168,37 @@ namespace NxtGenPOS
             return r;
         }
     }
+
+    class CustomerDescription
+    {
+        private string name;
+        private int kundeNr;
+        private double rabat;
+
+        public int getKundeNr()
+        {
+            return kundeNr;
+        }
+
+        public string getName()
+        {
+            return name;
+        }
+
+        public double getRabat()
+        {
+            return rabat;
+        }
+
+    }
+
+    class CustomerCatalog
+    {
+        private List<CustomerDescription> cList = new List<CustomerDescription>();
+
+        public CustomerDescription getCustomerDescription(int id)
+        {
+            return cList.Find(x => x.getKundeNr() == id);
+        }
+    }
 }
