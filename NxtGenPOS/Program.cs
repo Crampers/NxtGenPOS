@@ -10,13 +10,13 @@ namespace NxtGenPOS
     {
         static void Main(string[] args)
         {
-            
+            //
         }
     }
 
     class ProductCatalog //Done
     {
-        private List<ProductDescription> pcdList = new List<ProductDescription>(); 
+        private List<ProductDescription> pcdList = new List<ProductDescription>();
         public ProductDescription getProductDescription(int id)
         {
             return pcdList.Find(x => x.getID() == id);
@@ -97,9 +97,9 @@ namespace NxtGenPOS
             p = new Payment(cashTendered);
         }
 
-        
+
     }
-    
+
     class Payment // Done
     {
         private readonly double amount;
@@ -118,7 +118,7 @@ namespace NxtGenPOS
     {
         private int qty;
         private ProductDescription pcd;
-        public SalesLineItem (ProductDescription pcd, int qty)
+        public SalesLineItem(ProductDescription pcd, int qty)
         {
             this.qty = qty;
             this.pcd = pcd;
@@ -166,6 +166,39 @@ namespace NxtGenPOS
         public Register getregister()
         {
             return r;
+        }
+    }
+
+    class CustomerDescription
+    {
+        private string name;
+        private int kundeNr;
+        private double rabat;
+
+        public int getKundeNr()
+        {
+            return kundeNr;
+        }
+
+        public string getName()
+        {
+            return name;
+        }
+
+        public double getRabat()
+        {
+            return rabat;
+        }
+
+    }
+
+    class CustomerCatalog
+    {
+        private List<CustomerDescription> cList = new List<CustomerDescription>();
+
+        public CustomerDescription getCustomerDescription(int id)
+        {
+            return cList.Find(x => x.getKundeNr() == id);
         }
     }
 }
