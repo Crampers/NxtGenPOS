@@ -55,6 +55,19 @@ namespace NxtGenPOS
             s.BecomeComplete();
         }
 
+        public void PrintRecipe(int id)
+        {
+            Console.WriteLine("Name of Buyer: " +cc.GetCustomerDescription(id).GetName());
+            Console.WriteLine("Item's bought:");
+            foreach (var V in s.SalesLine())
+            {
+                Console.WriteLine(V);
+            }
+            Console.WriteLine("Buyer's Discount: " +cc.GetCustomerDescription(id).GetRabat());
+            Console.WriteLine("Total of Sale: " +s.GetTotal());
+            Console.WriteLine("Total of Sale after VAT: " +s.GetTotal());
+        }
+
     }
 
     class Sale //Done
@@ -97,6 +110,11 @@ namespace NxtGenPOS
         public void MakeNewPayment(double cashTendered)
         {
             p = new Payment(cashTendered);
+        }
+
+        public List<SalesLineItem> SalesLine()
+        {
+            return slItem;
         }
 
 
