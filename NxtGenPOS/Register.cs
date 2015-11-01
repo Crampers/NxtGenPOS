@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace NxtGenPOS
 {
-    class Register 
+    internal class Register
     {
         private Sale s;
         private readonly ProductCatalog pc;
         private readonly CustomerCatalog cc;
-        public Register(ProductCatalog pc,CustomerCatalog cc)
+
+        public Register(ProductCatalog pc, CustomerCatalog cc)
         {
             this.pc = pc;
             this.cc = cc;
@@ -40,14 +41,15 @@ namespace NxtGenPOS
 
         public void PrintRecipe(int id)
         {
-            Console.WriteLine("Name of Buyer: " +cc.GetCustomerDescription(id).GetName());
+            Console.WriteLine("Name of Buyer: " + cc.GetCustomerDescription(id).GetName());
             Console.WriteLine("Item's bought:");
             foreach (var V in s.SalesLine())
             {
                 Console.WriteLine(V);
             }
-            Console.WriteLine("Buyer's Discount: " +cc.GetCustomerDescription(id).GetRabat());
-            Console.WriteLine("Total of Sale: " +s.GetTotal());
-            Console.WriteLine("Total of Sale after VAT: " +s.GetTotal());
+            Console.WriteLine("Buyer's Discount: " + cc.GetCustomerDescription(id).GetRabat());
+            Console.WriteLine("Total of Sale: " + s.GetTotal());
+            Console.WriteLine("Total of Sale after VAT: " + s.GetTotal());
         }
+    }
 }

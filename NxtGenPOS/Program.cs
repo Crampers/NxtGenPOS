@@ -11,6 +11,9 @@ namespace NxtGenPOS
         static void Main(string[] args)
         {
             Store s = new Store();
+            Register r = s.Getregister();
+
+            r.EnterItem();
         }
     }
 }
