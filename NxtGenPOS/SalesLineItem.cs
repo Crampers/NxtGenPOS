@@ -19,5 +19,15 @@ namespace NxtGenPOS
         {
             return pcd.GetPrice();
         }
+
+        public int GetQty()
+        {
+            return qty;
+        }
+
+        public ProductDescription GetPcd()
+        {
+            return pcd;
+        }
     }
 }

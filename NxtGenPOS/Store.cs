@@ -9,7 +9,12 @@ namespace NxtGenPOS
     class Store
     {
         private string address;
-        private readonly Register r = new Register(new ProductCatalog(), new CustomerCatalog());
+        private readonly Register r;
+
+        public Store(ProductCatalog pc, CustomerCatalog cc)
+        {
+            r = new Register(pc,cc);
+        }
 
         public Register Getregister()
         {

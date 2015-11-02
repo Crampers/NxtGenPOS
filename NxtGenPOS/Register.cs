@@ -28,10 +28,9 @@ namespace NxtGenPOS
             s.MakeNewPayment(cash);
         }
 
-        public void EnterItem(int id, int qty)
+        public void EnterItem(string desc, int qty)
         {
-            ProductDescription desc = pc.GetProductDescription(id);
-            s.MakeLineItem(desc, qty);
+            s.MakeLineItem(pc.GetProductDescription(desc),qty);
         }
 
         public void EndSale()
@@ -39,17 +38,20 @@ namespace NxtGenPOS
             s.BecomeComplete();
         }
 
-        public void PrintRecipe(int id)
+        public void PrintReceipt(int id)
         {
-            Console.WriteLine("Name of Buyer: " + cc.GetCustomerDescription(id).GetName());
+            Console.WriteLine("\n----------------Receipt----------------");
+            Console.WriteLine("\nName of Buyer: " + cc.GetCustomerDescription(id).GetName());
             Console.WriteLine("Item's bought:");
             foreach (var V in s.SalesLine())
             {
-                Console.WriteLine(V);
+                Console.WriteLine("\n"+V.GetPcd().GetDesc()+"\tQuantity: "+V.GetQty());
             }
-            Console.WriteLine("Buyer's Discount: " + cc.GetCustomerDescription(id).GetRabat());
-            Console.WriteLine("Total of Sale: " + s.GetTotal());
-            Console.WriteLine("Total of Sale after VAT: " + s.GetTotal());
+            Console.WriteLine("\nBuyer's Discount: %" + cc.GetCustomerDescription(id).GetRabat());
+            Console.WriteLine("\nTotal of Sale: {0:F2}Kr", s.GetTotal());
+            Console.WriteLine("With Discount: {0:F2}Kr", (s.GetTotal() / cc.GetCustomerDescription(id).GetRabat()));
+            Console.WriteLine("\nTotal of Sale after VAT: {0:F2}Kr", ((s.GetTotal() / cc.GetCustomerDescription(id).GetRabat())*1.25));
+            Console.WriteLine("\n------------------END------------------");
         }
     }
 }
