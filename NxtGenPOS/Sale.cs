@@ -12,6 +12,12 @@ namespace NxtGenPOS
         private Payment p;
         private bool _isComplete = false;
         private string _Date;
+        private int id;
+
+        public Sale(CustomerDescription cd)
+        {
+            id = cd.GetKundeNr();
+        }
 
         public double GetBalance()
         {

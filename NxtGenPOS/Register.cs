@@ -18,9 +18,9 @@ namespace NxtGenPOS
             this.cc = cc;
         }
 
-        public void MakenewSale()
+        public void MakenewSale(int id)
         {
-            s = new Sale();
+            s = new Sale(cc.GetCustomerDescription(id));
         }
 
         public void MakePayment(int cash)
